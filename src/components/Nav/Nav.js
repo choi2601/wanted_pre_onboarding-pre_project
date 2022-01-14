@@ -1,7 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from '../common/Button';
+import { ReactComponent as SearchIcon } from '../../assets/icon-search.svg';
+import { ReactComponent as NoticeIcon } from '../../assets/icon-notice.svg';
 
 const menuList = [
   { name: '채용', path: 'jobsfeed' },
@@ -37,17 +39,24 @@ const Nav = () => {
           </MenuContainer>
           <AsideContainer>
             <AsideList>
-              <button className="searchButton">
-                <img alt="searchButton" />
-              </button>
+              <Button className="searchButton">
+                <SearchIcon />
+              </Button>
             </AsideList>
             <AsideList>
-              <button className="noticeButton">
-                <img alt="noticeButton" />
-              </button>
+              <Button className="noticeButton">
+                <NoticeIcon />
+              </Button>
             </AsideList>
             <AsideList>
-              <UserFigure />
+              <ProfileButton>
+                <UserFigure>
+                  <div className="userFigure" />
+                </UserFigure>
+              </ProfileButton>
+            </AsideList>
+            <AsideList className="leftDivision">
+              <DashBoardButton to="/dashboard">기업 서비스</DashBoardButton>
             </AsideList>
           </AsideContainer>
         </Inner>
@@ -71,9 +80,7 @@ const Header = styled.header`
 `;
 
 const Inner = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${({ theme }) => theme.flexMinin('row', 'space-between')}
 `;
 
 const LogoContainer = styled.div`
@@ -91,8 +98,10 @@ const HamburgerButton = styled(Button)`
 `;
 
 const Logo = styled(Link)`
-  text-decoration: none;
-  color: #333333;
+  ${({ theme }) =>
+    css`
+      ${theme.linkReset}
+    `};
 
   & .icon-logo {
     font-size: 17px;
@@ -101,9 +110,8 @@ const Logo = styled(Link)`
 
 const MenuContainer = styled.ul`
   display: flex;
-  font-size: 14px;
-  font-weight: 600;
   line-height: 20px;
+  ${({ theme }) => theme.navFont};
 `;
 
 const MenuList = styled.li`
@@ -111,17 +119,78 @@ const MenuList = styled.li`
 `;
 
 const MenuLink = styled(Link)`
-  text-decoration: none;
-  color: #333333;
+  ${({ theme }) => theme.linkReset};
 `;
 
 const AsideContainer = styled.ul`
   display: flex;
-  width: 251px;
 `;
 
-const AsideList = styled.li``;
+const AsideList = styled.li`
+  &.leftDivision {
+    display: inline-flex;
+  }
 
-const UserFigure = styled.figure``;
+  &.leftDivision::before {
+    display: block;
+    content: '';
+    width: 1px;
+    height: 10px;
+    background-color: #e1e2e3;
+    margin: auto 10px;
+  }
+
+  & .searchButton {
+    margin-top: 5px;
+    padding: 0 10px;
+  }
+  & .noticeButton {
+    position: relative;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 0 10px;
+  }
+`;
+
+const ProfileButton = styled(Button)`
+  height: 32px;
+  vertical-align: center;
+  margin-right: 11px;
+  padding: 0;
+  ${({ theme }) => theme.flexMinin('row', 'space-between')}
+`;
+
+const UserFigure = styled.figure`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e1e2e3;
+  background-color: #fff;
+  overflow: hidden;
+  ${({ theme }) => theme.flexMinin()};
+
+  & .userFigure {
+    background-image: url('https://static.wanted.co.kr/images/avatars/918846/ee27cddc.jpg');
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+`;
+
+const DashBoardButton = styled(Link)`
+  ${({ theme }) => theme.linkReset};
+  font-size: 13px;
+  color: #666;
+  line-height: 30px;
+  height: 30px;
+  border: 1px solid #e1e2e3;
+  border-radius: 15px;
+  padding: 0 10px;
+  margin-left: 15px;
+  font-weight: 400;
+`;
 
 export default Nav;
