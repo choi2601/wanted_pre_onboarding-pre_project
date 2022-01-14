@@ -1,6 +1,6 @@
-#  🚀  PRE_PROJECT- PRE_ON_BOARDING  | 프리온보딩 프론트 엔드 코스 선발 과제
+#  🚀  PRE_PROJECT- wanted_PRE_ONBOARDING  | 프리온보딩 프론트 엔드 코스 선발 과제
 
-###  📌 pre_on_boarding-pre_project 주요 기능
+###  📌 wanted_pre_onboarding-pre_project 주요 기능
 
 1. 각 숙소에 대한 정보를 접근하기 위한, Feed list 형식을 제공합니다.
 2. 정보의 접근성을위해, pagination을 통해 list로 분할하여 보여줍니다.
