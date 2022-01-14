@@ -1,4 +1,4 @@
-#  🚀  PRE_PROJECT- wanted_PRE_ONBOARDING  | 프리온보딩 프론트 엔드 코스 선발 과제
+#  🚀  PRE_PROJECT- WANTED_PRE_ONBOARDING  | 프리온보딩 프론트 엔드 코스 선발 과제
 
 ###  📌 wanted_pre_onboarding-pre_project 주요 기능
 
