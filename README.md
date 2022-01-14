@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+#  🚀  PRE_PROJECT- PRE_ON_BOARDING  | 프리온보딩 프론트 엔드 코스 선발 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###  📌 pre_on_boarding-pre_project 주요 기능
 
-## Available Scripts
+1. 각 숙소에 대한 정보를 접근하기 위한, Feed list 형식을 제공합니다.
+2. 정보의 접근성을위해, pagination을 통해 list로 분할하여 보여줍니다.
+3. 각 숙소에 대한 DetailPage 내에서 숙소에 대한 정보 및 이미지를 확인할 수 있으며 Info-Extension을 Carousel-Slider를 통해 보여줍니다.
 
-In the project directory, you can run:
+## 👫   팀원
 
-### `npm start`
+- Front-end: 최병현
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🗓  개발 기간
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 기간: 2022년 1월 14일 ~ 2022년 1월 19일(5일간)
 
-### `npm test`
+## 🛠 적용 기술
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Front-end: React(Functional-Component)_react-router-dom(V6), Styled-Components, JavaScript(ES6)
 
-### `npm run build`
+## 📍 구현 기능
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> Nav
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+      추후 추가 예정
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> Carousel Slider
 
-### `npm run eject`
+      추후 추가 예정
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 💁‍♂️  소감 및 후기
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+       추후 추가 예정
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📄 레퍼런스
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 이 프로젝트는 <u>[프론트앤드 프리온보딩 선발 과제](https://www.notion.so/X-9e8ff10dd1614112a81797219b7e6742)를 참조하여 만들었습니다.
+- 본 과제는 저작권의 보호를 받으며, 문제에 대한 정보를 배포하는 등의 행위를 금지 합니다. 
