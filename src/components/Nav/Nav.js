@@ -1,11 +1,12 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from '../common/Button';
 import { ReactComponent as SearchIcon } from '../../assets/icon-search.svg';
 import { ReactComponent as NoticeIcon } from '../../assets/icon-notice.svg';
 import { ReactComponent as NewIcon } from '../../assets/icon-new.svg';
 import { ReactComponent as BetaIcon } from '../../assets/icon-beta.svg';
+import { ReactComponent as NewBadgeIcon } from '../../assets/icon-new_badge.svg';
 
 const menuList = [
   { name: '채용', path: 'jobsfeed' },
@@ -55,6 +56,9 @@ const Nav = () => {
               <Button className="noticeButton">
                 <NoticeIcon />
               </Button>
+              <NewIconBadge className="search">
+                <NewBadgeIcon />
+              </NewIconBadge>
             </AsideList>
             <AsideList>
               <ProfileButton>
@@ -62,6 +66,9 @@ const Nav = () => {
                   <div className="userFigure" />
                 </UserFigure>
               </ProfileButton>
+              <NewIconBadge className="user">
+                <NewBadgeIcon />
+              </NewIconBadge>
             </AsideList>
             <AsideList className="leftDivision">
               <DashBoardButton to="/dashboard">기업 서비스</DashBoardButton>
@@ -120,8 +127,10 @@ const MenuContainer = styled.ul`
 `;
 
 const MenuList = styled.li`
-  height: inherit;
+  position: relative;
   display: inline-block;
+  height: 100%;
+  vertical-align: center;
 `;
 
 const MenuLink = styled(Link)`
@@ -144,9 +153,16 @@ const MenuLink = styled(Link)`
 
 const AsideContainer = styled.ul`
   display: flex;
+
+  @media (min-width: 1200px) {
+    padding: 0 10px;
+  }
 `;
 
 const AsideList = styled.li`
+  position: relative;
+  line-height: 1.42857143;
+
   &.leftDivision {
     display: inline-flex;
   }
@@ -172,9 +188,28 @@ const AsideList = styled.li`
   }
 `;
 
+const NewIconBadge = styled.span`
+  position: absolute;
+  top: -4px;
+  left: 24px;
+
+  &.user {
+    left: 22px;
+  }
+
+  padding: 0 !important;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 13px;
+  height: 13px;
+  background-color: rgb(51, 102, 255);
+  border-radius: 5px;
+`;
+
 const ProfileButton = styled(Button)`
   height: 32px;
-  vertical-align: center;
+  vertical-align: top;
   margin-right: 11px;
   padding: 0;
   ${({ theme }) => theme.flexMinin('row', 'space-between')}
@@ -202,14 +237,14 @@ const UserFigure = styled.figure`
 
 const DashBoardButton = styled(Link)`
   ${({ theme }) => theme.linkReset};
-  font-size: 13px;
-  color: #666;
   line-height: 30px;
   height: 30px;
   border: 1px solid #e1e2e3;
   border-radius: 15px;
   padding: 0 10px;
   margin-left: 15px;
+  color: #666;
+  font-size: 13px;
   font-weight: 400;
 `;
 
