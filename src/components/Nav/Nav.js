@@ -314,6 +314,10 @@ const AsideList = styled.li`
     @media (min-width: 992px) and (max-width: 1199px) {
       display: none !important;
     }
+
+    @media (min-width: 1200px) {
+      display: none !important;
+    }
   }
 
   & .searchButton {
