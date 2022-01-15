@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Button from '../common/Button';
 import { ReactComponent as SearchIcon } from '../../assets/icon-search.svg';
 import { ReactComponent as NoticeIcon } from '../../assets/icon-notice.svg';
+import { ReactComponent as NewIcon } from '../../assets/icon-new.svg';
+import { ReactComponent as BetaIcon } from '../../assets/icon-beta.svg';
 
 const menuList = [
   { name: '채용', path: 'jobsfeed' },
@@ -32,7 +34,13 @@ const Nav = () => {
             {menuList.map(({ name, path }, index) => {
               return (
                 <MenuList key={index}>
-                  <MenuLink to={`/${path}`}>{name}</MenuLink>
+                  <MenuLink to={`/${path}`}>
+                    {name}
+                    <em>
+                      {(name === '커뮤니티' && <NewIcon />) ||
+                        (name === 'AI 합격예측' && <BetaIcon />)}
+                    </em>
+                  </MenuLink>
                 </MenuList>
               );
             })}
@@ -98,10 +106,7 @@ const HamburgerButton = styled(Button)`
 `;
 
 const Logo = styled(Link)`
-  ${({ theme }) =>
-    css`
-      ${theme.linkReset}
-    `};
+  ${({ theme }) => theme.linkReset};
 
   & .icon-logo {
     font-size: 17px;
@@ -115,11 +120,26 @@ const MenuContainer = styled.ul`
 `;
 
 const MenuList = styled.li`
-  padding: 15px;
+  height: inherit;
+  display: inline-block;
 `;
 
 const MenuLink = styled(Link)`
   ${({ theme }) => theme.linkReset};
+
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 20px;
+  padding: 15px;
+
+  & em {
+    position: absolute;
+    top: 10px;
+    right: -5px;
+    pointer-events: none;
+    font-style: normal;
+  }
 `;
 
 const AsideContainer = styled.ul`
