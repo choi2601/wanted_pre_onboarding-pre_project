@@ -42,6 +42,29 @@ const TopBanner = styled.div`
   }
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+  ${({ theme }) => theme.flexMinin()};
+  position: absolute;
+  top: 120px;
+  width: 30px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  opacity: 0.5;
+  border-radius: 15px;
+  background-color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+
+  &.nextArrowButton {
+    right: calc((100% - 1200px) / 2);
+  }
+
+  &.prevArrowButton {
+    left: calc((100% - 1210px) / 2);
+  }
+`;
 
 export default MainPage;
