@@ -7,8 +7,10 @@ import { ReactComponent as NoticeIcon } from '../../assets/icon-notice.svg';
 import { ReactComponent as NewIcon } from '../../assets/icon-new.svg';
 import { ReactComponent as BetaIcon } from '../../assets/icon-beta.svg';
 import { ReactComponent as NewBadgeIcon } from '../../assets/icon-new_badge.svg';
+import { ReactComponent as MenuBtnIcon } from '../../assets/icon-menu_button.svg';
 
 const menuList = [
+  { name: '홈', path: '' },
   { name: '채용', path: 'jobsfeed' },
   { name: '이벤트', path: 'events' },
   { name: '직군별연봉', path: 'salary' },
@@ -20,63 +22,80 @@ const menuList = [
 
 const Nav = () => {
   return (
-    <Container>
-      <Header>
-        <Inner>
-          <LogoContainer>
-            <HamburgerButton>
-              <img alt="hamburgerButton" src="/images/icon-menu.png" />
-            </HamburgerButton>
-            <Logo to="/">
-              <i className="icon-logo_new" />
-            </Logo>
-          </LogoContainer>
-          <MenuContainer>
-            {menuList.map(({ name, path }, index) => {
-              return (
-                <MenuList key={index}>
-                  <MenuLink to={`/${path}`}>
-                    {name}
-                    <em>
-                      {(name === '커뮤니티' && <NewIcon />) ||
-                        (name === 'AI 합격예측' && <BetaIcon />)}
-                    </em>
-                  </MenuLink>
-                </MenuList>
-              );
-            })}
-          </MenuContainer>
-          <AsideContainer>
-            <AsideList>
-              <Button className="searchButton">
-                <SearchIcon />
-              </Button>
-            </AsideList>
-            <AsideList>
-              <Button className="noticeButton">
-                <NoticeIcon />
-              </Button>
-              <NewIconBadge className="search">
-                <NewBadgeIcon />
-              </NewIconBadge>
-            </AsideList>
-            <AsideList>
-              <ProfileButton>
-                <UserFigure>
-                  <div className="userFigure" />
-                </UserFigure>
-              </ProfileButton>
-              <NewIconBadge className="user">
-                <NewBadgeIcon />
-              </NewIconBadge>
-            </AsideList>
-            <AsideList className="leftDivision">
-              <DashBoardButton to="/dashboard">기업 서비스</DashBoardButton>
-            </AsideList>
-          </AsideContainer>
-        </Inner>
-      </Header>
-    </Container>
+    <>
+      <Container>
+        <Header>
+          <Inner>
+            <LeftContainer>
+              <LogoContainer>
+                <HamburgerButton>
+                  <img alt="hamburgerButton" src="/images/icon-menu.png" />
+                </HamburgerButton>
+                <Logo to="/">
+                  <i className="icon-logo_new" />
+                </Logo>
+              </LogoContainer>
+            </LeftContainer>
+            <MenuContainer>
+              {menuList.map(({ name, path }, index) => {
+                return (
+                  <MenuList
+                    className={
+                      (name === '홈' && 'home selectNav') ||
+                      (name === '채용' && 'jobsFeed') ||
+                      (name === '이벤트' && 'events')
+                    }
+                    key={index}
+                  >
+                    <MenuLink to={`/${path}`}>
+                      {name}
+                      <em>
+                        {(name === '커뮤니티' && <NewIcon />) ||
+                          (name === 'AI 합격예측' && <BetaIcon />)}
+                      </em>
+                    </MenuLink>
+                  </MenuList>
+                );
+              })}
+            </MenuContainer>
+            <AsideContainer>
+              <AsideList>
+                <Button className="searchButton defaultButton">
+                  <SearchIcon />
+                </Button>
+              </AsideList>
+              <AsideList>
+                <Button className="noticeButton defaultButton">
+                  <NoticeIcon />
+                </Button>
+                <NewIconBadge>
+                  <NewBadgeIcon />
+                </NewIconBadge>
+              </AsideList>
+              <AsideList className="profile">
+                <ProfileButton>
+                  <UserFigure>
+                    <div className="userFigure" />
+                  </UserFigure>
+                </ProfileButton>
+                <NewIconBadge className="user">
+                  <NewBadgeIcon />
+                </NewIconBadge>
+              </AsideList>
+              <AsideList className="leftDivision">
+                <DashBoardButton to="/dashboard">기업 서비스</DashBoardButton>
+              </AsideList>
+              <AsideList className="menu">
+                <Button className="menuButton">
+                  <MenuBtnIcon />
+                </Button>
+              </AsideList>
+            </AsideContainer>
+          </Inner>
+        </Header>
+      </Container>
+      <Padding />
+    </>
   );
 };
 
@@ -87,15 +106,53 @@ const Container = styled.div`
   background-color: #fff;
   box-shadow: 0 1px 0 0 rgba(0 0 0 / 10%);
   z-index: 100;
+  font-family: sans-serif;
 `;
 
 const Header = styled.header`
+  position: relative;
   max-width: 1060px;
   margin: 0 auto;
+  height: 50px;
+
+  @media (max-width: 767px) {
+    height: 110px;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    height: 110px;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    width: 90%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 87.72%;
+  }
 `;
 
 const Inner = styled.div`
   ${({ theme }) => theme.flexMinin('row', 'space-between')}
+  flex-wrap: wrap;
+`;
+
+const LeftContainer = styled.div`
+  ${({ theme }) => theme.flexMinin('row', 'space-between')}
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: 60px;
+    padding: 15px 20px;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 100%;
+    height: 60px;
+    padding: 15px 0;
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -115,6 +172,11 @@ const HamburgerButton = styled(Button)`
 const Logo = styled(Link)`
   ${({ theme }) => theme.linkReset};
 
+  @media (min-width: 768px) and (max-width: 991px) {
+    position: relative;
+    float: left;
+  }
+
   & .icon-logo {
     font-size: 17px;
   }
@@ -124,6 +186,21 @@ const MenuContainer = styled.ul`
   display: flex;
   line-height: 20px;
   ${({ theme }) => theme.navFont};
+
+  @media (max-width: 767px) {
+    text-align: left;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    justify-content: flex-start;
+    margin-right: 30px;
+  }
+
+  @media (min-width: 992px) and (max-width: 1100px) {
+    display: flex;
+    flex: 1 1;
+    justify-content: space-evenly;
+  }
 `;
 
 const MenuList = styled.li`
@@ -131,6 +208,23 @@ const MenuList = styled.li`
   display: inline-block;
   height: 100%;
   vertical-align: center;
+  font-weight: 600;
+
+  &.home {
+    @media (min-width: 768px) and (max-width: 991px) {
+      display: none;
+    }
+  }
+
+  &.selectNav {
+    box-shadow: inset 0 -2px #258bf7;
+  }
+
+  &:not(.home):not(.jobsFeed):not(.events) {
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
 `;
 
 const MenuLink = styled(Link)`
@@ -148,6 +242,15 @@ const MenuLink = styled(Link)`
     right: -5px;
     pointer-events: none;
     font-style: normal;
+
+    @media (min-width: 992px) and (max-width: 1100px) {
+      right: -20px;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1100px) {
+    font-size: 13px;
+    padding: 15px 0;
   }
 `;
 
@@ -163,8 +266,26 @@ const AsideList = styled.li`
   position: relative;
   line-height: 1.42857143;
 
+  &.profile {
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      display: none;
+    }
+  }
+
   &.leftDivision {
     display: inline-flex;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      display: none;
+    }
   }
 
   &.leftDivision::before {
@@ -176,15 +297,59 @@ const AsideList = styled.li`
     margin: auto 10px;
   }
 
+  &.menu {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    vertical-align: center;
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      display: none !important;
+    }
+  }
+
   & .searchButton {
     margin-top: 5px;
-    padding: 0 10px;
+
+    @media (max-width: 767px) {
+      margin: 0;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      margin: 0;
+    }
+
+    @media (min-width: 1200px) {
+      padding: 0 10px;
+    }
   }
+
   & .noticeButton {
     position: relative;
     margin-right: 10px;
     margin-top: 5px;
     padding: 0 10px;
+
+    @media (max-width: 767px) {
+      margin: 0;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      margin: 0;
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      margin-right: 0;
+    }
+  }
+
+  & .menuButton {
+    margin-right: 10px;
+    padding-left: 10px;
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -213,6 +378,14 @@ const ProfileButton = styled(Button)`
   margin-right: 11px;
   padding: 0;
   ${({ theme }) => theme.flexMinin('row', 'space-between')}
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    margin-right: 0;
+  }
+
+  @media (min-width: 1200px) {
+    padding: none;
+  }
 `;
 
 const UserFigure = styled.figure`
@@ -243,9 +416,29 @@ const DashBoardButton = styled(Link)`
   border-radius: 15px;
   padding: 0 10px;
   margin-left: 15px;
-  color: #666;
+  color: #666666;
   font-size: 13px;
   font-weight: 400;
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    margin: none;
+  }
+
+  @media (min-width: 1200px) {
+    padding: none;
+  }
+`;
+
+const Padding = styled.div`
+  height: 50px;
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    height: 110px;
+  }
+
+  @media (max-width: 767px) {
+    height: 110px;
+  }
 `;
 
 export default Nav;
