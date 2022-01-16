@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LinkToButton } from '../../../assets/icon-link_to_button.svg';
 
-const InfoFeed = () => {
+const InfoFeed = ({ feedInfo }) => {
+  const {
+    image,
+    info: { headLine, description },
+  } = feedInfo;
+
   return (
     <Container>
       <ImageContainer>
         <InfoLink to="#">
-          <img alt="wantedImg" src="/images/slide_image-13.jpeg" />
+          <img alt="wantedImg" src={`/images/${image}`} />
         </InfoLink>
       </ImageContainer>
       <DetailInfoContainer>
-        <h2>두헨즈 개발 채용</h2>
-        <h3>매년 유급 안식월 지원!</h3>
+        <h2>{headLine}</h2>
+        <h3>{description}</h3>
         <hr className="divider" />
         <DirectLink to="#">
           <DirectButton>
@@ -31,7 +36,7 @@ const InfoFeed = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: 1224px;
   display: inline-block;
 `;
 
