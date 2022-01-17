@@ -62,24 +62,7 @@ const CarouselSlide = () => {
   const handleClick = event => {
     if (isMoving) return;
 
-    const { id } = getTarget(event.target, 'BUTTON');
-
-    if (id === 'prev') {
-      const prevSlide = targets.current[2];
-      const prevSlideImageStyle =
-        prevSlide.getElementsByClassName('imageBrightness')[0].style;
-      const prevSlideVisibleStyle =
-        prevSlide.getElementsByClassName('detailInfo')[0].style;
-
-      prevSlideImageStyle.setProperty('filter', 'brightness(50%)');
-      prevSlideVisibleStyle.setProperty('visibility', 'hidden');
-
-      target.current.insertBefore(
-        targets.current[targets.current.length - 1],
-        targets.current[0]
-      );
-      targets.current = Array.from(target.current.childNodes);
-    } else if (id === 'next') {
+    if (!event) {
       const prevSlide = targets.current[2];
       const prevSlideImageStyle =
         prevSlide.getElementsByClassName('imageBrightness')[0].style;
@@ -91,8 +74,38 @@ const CarouselSlide = () => {
 
       target.current.appendChild(targets.current[0]);
       targets.current = Array.from(target.current.childNodes);
-    }
+    } else {
+      const { id } = getTarget(event.target, 'BUTTON');
 
+      if (id === 'prev') {
+        const prevSlide = targets.current[2];
+        const prevSlideImageStyle =
+          prevSlide.getElementsByClassName('imageBrightness')[0].style;
+        const prevSlideVisibleStyle =
+          prevSlide.getElementsByClassName('detailInfo')[0].style;
+
+        prevSlideImageStyle.setProperty('filter', 'brightness(50%)');
+        prevSlideVisibleStyle.setProperty('visibility', 'hidden');
+
+        target.current.insertBefore(
+          targets.current[targets.current.length - 1],
+          targets.current[0]
+        );
+        targets.current = Array.from(target.current.childNodes);
+      } else if (id === 'next') {
+        const prevSlide = targets.current[2];
+        const prevSlideImageStyle =
+          prevSlide.getElementsByClassName('imageBrightness')[0].style;
+        const prevSlideVisibleStyle =
+          prevSlide.getElementsByClassName('detailInfo')[0].style;
+
+        prevSlideImageStyle.setProperty('filter', 'brightness(50%)');
+        prevSlideVisibleStyle.setProperty('visibility', 'hidden');
+
+        target.current.appendChild(targets.current[0]);
+        targets.current = Array.from(target.current.childNodes);
+      }
+    }
     const currentSlide = targets.current[2];
     const currentSlideImageStyle =
       currentSlide.getElementsByClassName('imageBrightness')[0].style;
@@ -106,6 +119,13 @@ const CarouselSlide = () => {
   const handleTransitionEnd = () => {
     setIsMoving(false);
   };
+
+  useEffect(() => {
+    if (!target.current || !targets.current) return;
+    (() => {
+      setInterval(handleClick, 5000);
+    })();
+  }, []);
 
   return (
     <>
