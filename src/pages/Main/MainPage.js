@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import CarouselSlide from '../../components/common/CarouselSlide/CarouselSlide';
 
-import useCarousel from '../../hooks/useCarousel';
-
 const MainPage = () => {
   return (
     <Container>

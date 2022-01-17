@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LinkToButton } from '../../../assets/icon-link_to_button.svg';
@@ -8,12 +8,21 @@ const InfoFeed = ({ feedInfo }) => {
     image,
     info: { headLine, description },
   } = feedInfo;
+  const [width, setWidth] = useState(0);
+
+  const setCurrentSlideWidth = ({ target }) => {
+    setWidth(target.offsetWidth);
+  };
 
   return (
-    <Container>
+    <Container width={width}>
       <ImageContainer>
         <InfoLink to="#">
-          <img alt="wantedImg" src={`/images/${image}`} />
+          <Img
+            alt="wantedImg"
+            onLoad={setCurrentSlideWidth}
+            src={`/images/${image}`}
+          />
         </InfoLink>
       </ImageContainer>
       <DetailInfoContainer>
@@ -36,7 +45,7 @@ const InfoFeed = ({ feedInfo }) => {
 };
 
 const Container = styled.div`
-  width: 1224px;
+  width: ${({ width }) => width}px;
   display: inline-block;
 `;
 
@@ -48,13 +57,12 @@ const InfoLink = styled(Link)`
   ${({ theme }) => theme.linkReset};
   color: inherit;
   cursor: pointer;
+`;
 
-  & img {
-    display: inline-block;
-    width: 100%;
-    border-radius: 4px;
-    object-fit: cover;
-  }
+const Img = styled.img`
+  display: inline-block;
+  border-radius: 4px;
+  object-fit: cover;
 `;
 
 const DetailInfoContainer = styled.div`

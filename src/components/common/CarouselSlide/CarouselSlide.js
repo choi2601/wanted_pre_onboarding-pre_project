@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+} from 'react';
 import styled from 'styled-components';
 import InfoFeed from './InfoFeed';
 import { ReactComponent as NextArrowButton } from '../../../assets/icon-next_arrow.svg';
@@ -52,12 +58,12 @@ const CarouselSlide = () => {
     setIsMoving,
     move,
   } = useCarousel();
-  const target = useRef(null);
 
-  const handleContentLoad = () => {
-    // const slideWidth
-    // if (width !== currentSlideWidth) setWidth(currentSlideWidth);
-    // move(1);
+  const handleContentLoad = ({ target }) => {
+    const currentSlideWidth = target.offsetWidth;
+
+    setWidth(width + currentSlideWidth);
+    move(1);
   };
 
   const handleClick = ({ target: { id } }) => {
@@ -88,24 +94,24 @@ const CarouselSlide = () => {
     }
   };
 
-  useLayoutEffect(() => {
-    console.log(target.current.offsetWidth);
-  }, []);
-
   const roopImages = [images[images.length - 1], ...images, images[0]];
   return (
     <>
-      <SlideList width={width}>
+      <SlideList>
         <SlideTrack
+          width={width}
           currentSlide={currentSlide}
           duration={duration}
           onTransitionEnd={handleTransitionEnd}
         >
           {roopImages.map((feedInfo, index) => {
             return (
-              <Slide ref={target} key={index}>
+              <Slide onLoad={handleContentLoad} key={index}>
                 <Inner>
-                  <InfoFeed feedInfo={feedInfo} />
+                  <InfoFeed
+                    handleContentLoad={handleContentLoad}
+                    feedInfo={feedInfo}
+                  />
                 </Inner>
               </Slide>
             );
@@ -127,17 +133,15 @@ const CarouselSlide = () => {
 };
 
 const SlideList = styled.div`
-  /* width: ${({ width }) => width}px; */
-  width: 1200px;
   position: relative;
   margin: 0;
-  overflow: hidden;
   padding: 0 50px;
 `;
 
 const SlideTrack = styled.div`
+  width: ${({ width }) => width}px;
   display: flex;
-
+  transform: translateX(${({ currentSlide }) => currentSlide * -1820}px);
   transition: transform ${({ duration }) => duration}ms ease-out;
 `;
 
