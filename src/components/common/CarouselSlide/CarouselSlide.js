@@ -1,15 +1,9 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useLayoutEffect,
-  useCallback,
-} from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import InfoFeed from './InfoFeed';
 import { ReactComponent as NextArrowButton } from '../../../assets/icon-next_arrow.svg';
 import { ReactComponent as PrevArrowButton } from '../../../assets/icon-prev_arrow.svg';
-import useCarousel from '../../../hooks/useCarousel';
+import { getTarget } from '../../../module/getTarget';
 
 const CarouselSlide = () => {
   const [images, setImages] = useState([
@@ -49,67 +43,89 @@ const CarouselSlide = () => {
       },
     },
   ]);
-  const {
-    width,
-    currentSlide,
-    duration,
-    isMoving,
-    setWidth,
-    setIsMoving,
-    move,
-  } = useCarousel();
+
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [isMoving, setIsMoving] = useState(false);
+
+  let target = useRef(null);
+  let targets = useRef([]);
 
   const handleContentLoad = ({ target }) => {
     const currentSlideWidth = target.offsetWidth;
+    const currentSlideHeight = target.offsetHeight;
 
-    setWidth(width + currentSlideWidth);
-    move(1);
+    if (width !== currentSlideWidth) setWidth(currentSlideWidth);
+    if (height !== currentSlideHeight) setHeight(currentSlideHeight);
   };
 
-  const handleClick = ({ target: { id } }) => {
+  const handleClick = event => {
     if (isMoving) return;
 
-    const delta = id === 'prev' ? -1 : 1;
-    const newSlide = currentSlide + 1 * delta;
+    const { id } = getTarget(event.target, 'BUTTON');
 
-    move(newSlide, 500);
+    if (id === 'prev') {
+      const prevSlide = targets.current[2];
+      const prevSlideImageStyle =
+        prevSlide.getElementsByClassName('imageBrightness')[0].style;
+      const prevSlideVisibleStyle =
+        prevSlide.getElementsByClassName('detailInfo')[0].style;
+
+      prevSlideImageStyle.setProperty('filter', 'brightness(50%)');
+      prevSlideVisibleStyle.setProperty('visibility', 'hidden');
+
+      target.current.insertBefore(
+        targets.current[targets.current.length - 1],
+        targets.current[0]
+      );
+      targets.current = Array.from(target.current.childNodes);
+    } else if (id === 'next') {
+      const prevSlide = targets.current[2];
+      const prevSlideImageStyle =
+        prevSlide.getElementsByClassName('imageBrightness')[0].style;
+      const prevSlideVisibleStyle =
+        prevSlide.getElementsByClassName('detailInfo')[0].style;
+
+      prevSlideImageStyle.setProperty('filter', 'brightness(50%)');
+      prevSlideVisibleStyle.setProperty('visibility', 'hidden');
+
+      target.current.appendChild(targets.current[0]);
+      targets.current = Array.from(target.current.childNodes);
+    }
+
+    const currentSlide = targets.current[2];
+    const currentSlideImageStyle =
+      currentSlide.getElementsByClassName('imageBrightness')[0].style;
+    const currentSlideVisibleStyle =
+      currentSlide.getElementsByClassName('detailInfo')[0].style;
+
+    currentSlideImageStyle.setProperty('filter', 'brightness(100%)');
+    currentSlideVisibleStyle.setProperty('visibility', 'visible');
   };
 
   const handleTransitionEnd = () => {
     setIsMoving(false);
-
-    const firstCloneSlide = 0;
-    const LastCloneSlide = images.length + 1;
-
-    const delta =
-      currentSlide === firstCloneSlide
-        ? 1
-        : currentSlide === LastCloneSlide
-        ? -1
-        : 0;
-
-    if (delta) {
-      const deltaValue = images.length * delta;
-      move(currentSlide + deltaValue);
-    }
   };
 
-  const roopImages = [images[images.length - 1], ...images, images[0]];
   return (
     <>
       <SlideList>
         <SlideTrack
           width={width}
-          currentSlide={currentSlide}
-          duration={duration}
+          height={height}
+          ref={target}
           onTransitionEnd={handleTransitionEnd}
         >
-          {roopImages.map((feedInfo, index) => {
+          {images.map((feedInfo, index) => {
             return (
-              <Slide onLoad={handleContentLoad} key={index}>
+              <Slide
+                ref={el => (targets.current[index] = el)}
+                onLoad={handleContentLoad}
+                key={index}
+              >
                 <Inner>
                   <InfoFeed
-                    handleContentLoad={handleContentLoad}
+                    active={index === 2 && 'active'}
                     feedInfo={feedInfo}
                   />
                 </Inner>
@@ -133,25 +149,46 @@ const CarouselSlide = () => {
 };
 
 const SlideList = styled.div`
-  position: relative;
   margin: 0;
-  padding: 0 50px;
+  overflow: hidden;
 `;
 
 const SlideTrack = styled.div`
   width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
   display: flex;
-  transform: translateX(${({ currentSlide }) => currentSlide * -1820}px);
-  transition: transform ${({ duration }) => duration}ms ease-out;
+  position: relative;
+  margin: 0 auto;
 `;
 
 const Slide = styled.div`
-  position: relative;
+  position: absolute;
+  transition: 1s all ease-out;
   height: 100%;
-  @media (min-width: 1200px) {
-    padding: 0 12px;
-    box-sizing: content-box;
+
+  &:nth-child(1) {
+    z-index: 1;
+    transform: translateX(-204%);
   }
+  &:nth-child(2) {
+    z-index: 2;
+    transform: translateX(-102%);
+  }
+  &:nth-child(3) {
+    z-index: 4;
+  }
+  &:nth-child(4) {
+    z-index: 2;
+    transform: translateX(102%);
+  }
+  &:nth-child(n + 5) {
+    z-index: 1;
+    transform: translateX(204%);
+  }
+
+  @media (min-width: 1200px) {
+    box-sizing: content-box;
+  } ;
 `;
 
 const Inner = styled.div`
@@ -176,6 +213,7 @@ const Button = styled.button`
   border-radius: 15px;
   background-color: #fff;
   font-size: 16px;
+  z-index: 400;
   cursor: pointer;
 
   &#next {

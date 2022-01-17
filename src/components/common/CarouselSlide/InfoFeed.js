@@ -1,31 +1,28 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LinkToButton } from '../../../assets/icon-link_to_button.svg';
 
-const InfoFeed = ({ feedInfo }) => {
+const InfoFeed = ({ active, feedInfo }) => {
   const {
     image,
     info: { headLine, description },
   } = feedInfo;
-  const [width, setWidth] = useState(0);
-
-  const setCurrentSlideWidth = ({ target }) => {
-    setWidth(target.offsetWidth);
-  };
 
   return (
-    <Container width={width}>
-      <ImageContainer>
+    <Container>
+      <ImageContainer
+        className="imageBrightness"
+        style={{ filter: `${active ? 'brightness(100%)' : 'brightness(50%)'}` }}
+      >
         <InfoLink to="#">
-          <Img
-            alt="wantedImg"
-            onLoad={setCurrentSlideWidth}
-            src={`/images/${image}`}
-          />
+          <Img alt="wantedImg" src={`/images/${image}`} />
         </InfoLink>
       </ImageContainer>
-      <DetailInfoContainer>
+      <DetailInfoContainer
+        className="detailInfo"
+        style={{ visibility: `${active ? 'visible' : 'hidden'}` }}
+      >
         <h2>{headLine}</h2>
         <h3>{description}</h3>
         <hr className="divider" />
@@ -45,13 +42,10 @@ const InfoFeed = ({ feedInfo }) => {
 };
 
 const Container = styled.div`
-  width: ${({ width }) => width}px;
   display: inline-block;
 `;
 
-const ImageContainer = styled.div`
-  filter: brightness(50%);
-`;
+const ImageContainer = styled.div``;
 
 const InfoLink = styled(Link)`
   ${({ theme }) => theme.linkReset};
