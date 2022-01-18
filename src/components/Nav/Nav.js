@@ -264,10 +264,6 @@ const MenuLink = styled(Link)`
 
 const AsideContainer = styled.ul`
   display: flex;
-
-  @media (min-width: 1200px) {
-    padding: 0 10px;
-  }
 `;
 
 const AsideList = styled.li`
@@ -312,6 +308,10 @@ const AsideList = styled.li`
     vertical-align: center;
 
     @media (min-width: 992px) and (max-width: 1199px) {
+      display: none !important;
+    }
+
+    @media (min-width: 1200px) {
       display: none !important;
     }
   }
