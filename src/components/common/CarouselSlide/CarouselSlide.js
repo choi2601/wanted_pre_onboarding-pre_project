@@ -60,7 +60,6 @@ const CarouselSlide = () => {
   };
 
   const moveSlide = event => {
-    console.log(event);
     if (isMoving) return;
 
     if (!event) {
@@ -76,7 +75,12 @@ const CarouselSlide = () => {
       target.current.appendChild(targets.current[0]);
       targets.current = Array.from(target.current.childNodes);
     } else {
-      const { id } = getTarget(event.target, 'BUTTON');
+      let id;
+      if (event.type === 'swipe') {
+        id = event.id;
+      } else {
+        id = getTarget(event.target, 'BUTTON').id;
+      }
 
       if (id === 'prev') {
         const prevSlide = targets.current[2];
@@ -121,12 +125,12 @@ const CarouselSlide = () => {
     setIsMoving(false);
   };
 
-  useEffect(() => {
-    if (!target.current || !targets.current) return;
-    (() => {
-      setInterval(moveSlide, 5000);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   if (!target.current || !targets.current) return;
+  //   (() => {
+  //     setInterval(moveSlide, 5000);
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -136,7 +140,6 @@ const CarouselSlide = () => {
           height={height}
           ref={target}
           onTransitionEnd={handleTransitionEnd}
-          onTouchEnd={moveSlide}
         >
           {images.map((feedInfo, index) => {
             return (
@@ -149,6 +152,7 @@ const CarouselSlide = () => {
                   <InfoFeed
                     active={index === 2 && 'active'}
                     feedInfo={feedInfo}
+                    moveSlide={moveSlide}
                   />
                 </Inner>
               </Slide>

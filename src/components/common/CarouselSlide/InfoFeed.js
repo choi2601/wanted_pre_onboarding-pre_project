@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LinkToButton } from '../../../assets/icon-link_to_button.svg';
 
-const InfoFeed = ({ active, feedInfo }) => {
+const InfoFeed = ({ active, feedInfo, moveSlide }) => {
   const {
     image,
     info: { headLine, description },
   } = feedInfo;
+  const [isClick, setIsClick] = useState(false);
+  const [prevPosX, setPrevPosX] = useState();
+
+  const mouseDownOnContent = event => {
+    const currentMousePosX = event.clientX;
+    setPrevPosX(currentMousePosX);
+    setIsClick(true);
+  };
+
+  const mouseUpOnContent = event => {
+    if (isClick) {
+      const currentMousePosX = event.clientX;
+      if (currentMousePosX > prevPosX) moveSlide({ type: 'swipe', id: 'prev' });
+      else moveSlide({ type: 'swipe', id: 'next' });
+
+      setPrevPosX(0);
+      setIsClick(false);
+    }
+  };
 
   return (
-    <Container>
+    <Container onMouseDown={mouseDownOnContent} onMouseUp={mouseUpOnContent}>
       <ImageContainer
         className="imageBrightness"
         style={{ filter: `${active ? 'brightness(100%)' : 'brightness(50%)'}` }}
