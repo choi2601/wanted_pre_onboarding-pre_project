@@ -59,7 +59,8 @@ const CarouselSlide = () => {
     if (height !== currentSlideHeight) setHeight(currentSlideHeight);
   };
 
-  const handleClick = event => {
+  const moveSlide = event => {
+    console.log(event);
     if (isMoving) return;
 
     if (!event) {
@@ -123,7 +124,7 @@ const CarouselSlide = () => {
   useEffect(() => {
     if (!target.current || !targets.current) return;
     (() => {
-      setInterval(handleClick, 5000);
+      setInterval(moveSlide, 5000);
     })();
   }, []);
 
@@ -135,6 +136,7 @@ const CarouselSlide = () => {
           height={height}
           ref={target}
           onTransitionEnd={handleTransitionEnd}
+          onTouchEnd={moveSlide}
         >
           {images.map((feedInfo, index) => {
             return (
@@ -154,12 +156,12 @@ const CarouselSlide = () => {
           })}
         </SlideTrack>
       </SlideList>
-      <Button onClick={handleClick} id="next">
+      <Button onClick={moveSlide} id="next">
         <span>
           <NextArrowButton />
         </span>
       </Button>
-      <Button onClick={handleClick} id="prev">
+      <Button onClick={moveSlide} id="prev">
         <span>
           <PrevArrowButton />
         </span>
@@ -179,6 +181,7 @@ const SlideTrack = styled.div`
   display: flex;
   position: relative;
   margin: 0 auto;
+  user-select: none;
 `;
 
 const Slide = styled.div`

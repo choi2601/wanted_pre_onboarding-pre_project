@@ -51,12 +51,14 @@ const InfoLink = styled(Link)`
   ${({ theme }) => theme.linkReset};
   color: inherit;
   cursor: pointer;
+  -webkit-user-drag: none;
 `;
 
 const Img = styled.img`
   display: inline-block;
   border-radius: 4px;
   object-fit: cover;
+  -webkit-user-drag: none;
 `;
 
 const DetailInfoContainer = styled.div`
@@ -70,6 +72,7 @@ const DetailInfoContainer = styled.div`
     background-color: #fff;
     opacity: 1;
     text-align: left;
+    cursor: pointer;
   }
 
   & h2 {
