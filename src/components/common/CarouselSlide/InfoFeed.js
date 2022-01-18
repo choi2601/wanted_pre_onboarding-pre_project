@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LinkToButton } from '../../../assets/icon-link_to_button.svg';
 
-const InfoFeed = ({ active, feedInfo }) => {
+const InfoFeed = ({ active, feedInfo, moveSlide }) => {
   const {
     image,
     info: { headLine, description },
   } = feedInfo;
+  const [isClick, setIsClick] = useState(false);
+  const [prevPosX, setPrevPosX] = useState();
+
+  const mouseDownOnContent = event => {
+    const currentMousePosX = event.clientX;
+    setPrevPosX(currentMousePosX);
+    setIsClick(true);
+  };
+
+  const mouseUpOnContent = event => {
+    if (isClick) {
+      const currentMousePosX = event.clientX;
+      if (currentMousePosX === prevPosX) return;
+      if (currentMousePosX > prevPosX) moveSlide({ type: 'swipe', id: 'prev' });
+      else moveSlide({ type: 'swipe', id: 'next' });
+
+      setPrevPosX(0);
+      setIsClick(false);
+    }
+  };
 
   return (
-    <Container>
+    <Container onMouseDown={mouseDownOnContent} onMouseUp={mouseUpOnContent}>
       <ImageContainer
         className="imageBrightness"
         style={{ filter: `${active ? 'brightness(100%)' : 'brightness(50%)'}` }}
@@ -45,21 +65,59 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const ImageContainer = styled.div``;
+const ImageContainer = styled.div`
+  @media (min-width: 768px) and (max-width: 991px) {
+    height: 183px;
+    border-radius: 3px 3px 0 0;
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    height: 183px;
+    border-radius: 3px 3px 0 0;
+  } ;
+`;
 
 const InfoLink = styled(Link)`
   ${({ theme }) => theme.linkReset};
   color: inherit;
   cursor: pointer;
+  -webkit-user-drag: none;
 `;
 
 const Img = styled.img`
   display: inline-block;
   border-radius: 4px;
   object-fit: cover;
+  -webkit-user-drag: none;
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 882px;
+    height: 100%;
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    width: 1060px;
+    height: 100%;
+  } ;
 `;
 
 const DetailInfoContainer = styled.div`
+  @media (min-width: 768px) and (max-width: 991px) {
+    text-align: center;
+
+    & h3 {
+      letter-spacing: 0.8px;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    text-align: center;
+
+    & h3 {
+      letter-spacing: 0.8px;
+    }
+  }
+
   @media (min-width: 1200px) {
     position: absolute;
     bottom: 28px;
@@ -70,6 +128,7 @@ const DetailInfoContainer = styled.div`
     background-color: #fff;
     opacity: 1;
     text-align: left;
+    cursor: pointer;
   }
 
   & h2 {
@@ -117,6 +176,14 @@ const DetailInfoContainer = styled.div`
     flex-shrink: 0;
     background-color: #ececec;
 
+    @media (min-width: 768px) and (max-width: 991px) {
+      display: none;
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      display: none;
+    }
+
     @media (min-width: 1200px) {
       display: block;
     }
@@ -161,6 +228,10 @@ const DirectButton = styled.span`
       justify-content: inherit;
       align-items: inherit;
     }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    padding-left: 10px;
   }
 `;
 export default InfoFeed;
