@@ -10,8 +10,8 @@ const CarouselSlide = () => {
     {
       image: 'slide_image-1.jpeg',
       info: {
-        headLine: '개발자가 되고 싶은 분들?!',
-        description: '프론트엔드 무료 교육과정 참여하기',
+        headLine: '채팅 상담의 국룰 - 채널톡',
+        description: '개발, 비즈니스 외 전 직군 채용',
       },
     },
     {
@@ -24,22 +24,43 @@ const CarouselSlide = () => {
     {
       image: 'slide_image-3.jpeg',
       info: {
-        headLine: '채팅 상담의 국룰 - 채널톡',
-        description: '개발, 비즈니스 외 전 직군 채용',
+        headLine: '개발자가 되고 싶은 분들?!',
+        description: '프론트엔드 무료 교육과정 참여하기',
       },
     },
     {
       image: 'slide_image-4.jpeg',
+      info: {
+        headLine: '골드만 삭스가 주주라고?!',
+        description: '잘 봐 핀테크 1등 싸움이다.',
+      },
+    },
+    {
+      image: 'slide_image-5.jpeg',
       info: {
         headLine: '메타쇼핑 플랫폼, 위메프',
         description: '개발직군 적극 채용 중!',
       },
     },
     {
-      image: 'slide_image-5.jpeg',
+      image: 'slide_image-6.jpeg',
       info: {
-        headLine: '골드만 삭스가 주주라고?!',
-        description: '잘 봐 핀테크 1등 싸움이다.',
+        headLine: '인턴을 Wanted',
+        description: '국내 최고의 IT 기업에서 인턴 적극 모집 중!',
+      },
+    },
+    {
+      image: 'slide_image-7.jpeg',
+      info: {
+        headLine: '2천만의 라이프 스타일 플랫폼',
+        description: '우리의 일은 업계의 표준이 됩니다',
+      },
+    },
+    {
+      image: 'slide_image-8.jpeg',
+      info: {
+        headLine: '럭셔리 쇼핑을 발란',
+        description: '전 직군 채용 중!',
       },
     },
   ]);
@@ -54,6 +75,8 @@ const CarouselSlide = () => {
   const handleContentLoad = ({ target }) => {
     const currentSlideWidth = target.offsetWidth;
     const currentSlideHeight = target.offsetHeight;
+
+    console.log(currentSlideWidth);
 
     if (width !== currentSlideWidth) setWidth(currentSlideWidth);
     if (height !== currentSlideHeight) setHeight(currentSlideHeight);
@@ -190,7 +213,7 @@ const SlideTrack = styled.div`
 
 const Slide = styled.div`
   position: absolute;
-  transition: 1s all ease-out;
+  transition: 0.5s all ease-out;
   height: 100%;
 
   &:nth-child(1) {
@@ -213,13 +236,37 @@ const Slide = styled.div`
     transform: translateX(204%);
   }
 
+  @media (min-width: 768px) and (max-width: 991px) {
+    left: 45px;
+
+    &:nth-child(1) {
+      z-index: 1;
+      transform: translateX(-200%);
+    }
+    &:nth-child(2) {
+      z-index: 2;
+      transform: translateX(-102%);
+    }
+    &:nth-child(3) {
+      z-index: 4;
+    }
+    &:nth-child(4) {
+      z-index: 2;
+      transform: translateX(102%);
+    }
+    &:nth-child(n + 5) {
+      z-index: 1;
+      transform: translateX(200%);
+    }
+  }
+
   @media (min-width: 1200px) {
     box-sizing: content-box;
   } ;
 `;
 
 const Inner = styled.div`
-  margin: 20px 10px;
+  margin: 20px 0;
 
   @media (min-width: 1200px) {
     margin: 0;
@@ -250,5 +297,9 @@ const Button = styled.button`
   &#prev {
     left: calc((100% - 1210px) / 2);
   }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    visibility: hidden;
+  } ;
 `;
 export default CarouselSlide;
