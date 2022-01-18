@@ -148,12 +148,17 @@ const CarouselSlide = () => {
     setIsMoving(false);
   };
 
-  // useEffect(() => {
-  //   if (!target.current || !targets.current) return;
-  //   (() => {
-  //     setInterval(moveSlide, 5000);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    if (!target.current || !targets.current) return;
+    let intervalId;
+    (() => {
+      intervalId = setInterval(moveSlide, 5000);
+    })();
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <>
