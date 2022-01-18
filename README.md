@@ -9,6 +9,10 @@
 2. CarouselSlider 내에 Slide들이 넘어가기 위해 **Button Click, setInterval, Swipe** 총 세 가지의 trigger 기능을 구현하였습니다.
 3. 각 Slide의 의도 된 시퀀스 순서에 따라 transform의 translateX 수치에 변화를 주어 **Infinite Slider** 기능을 구현하였습니다.
 
+
+![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/65222200/150014302-c06478b8-cd28-4318-82bc-5cd06e7e53d2.gif)
+![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/65222200/150014806-d2fc8e97-6d16-43fc-9613-cd12ff340039.gif)
+
 ## 👫   팀원
 
 - Front-end: 최병현
