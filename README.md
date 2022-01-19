@@ -9,9 +9,8 @@
 2. CarouselSlider 내에 Slide들이 넘어가기 위해 **Button Click, setInterval, Swipe** 총 세 가지의 trigger 기능을 구현하였습니다.
 3. 각 Slide의 의도 된 시퀀스 순서에 따라 transform의 translateX 수치에 변화를 주어 **Infinite Slider** 기능을 구현하였습니다.
 
-
-![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/65222200/150014302-c06478b8-cd28-4318-82bc-5cd06e7e53d2.gif)
-![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/65222200/150014806-d2fc8e97-6d16-43fc-9613-cd12ff340039.gif)
+<img src="https://user-images.githubusercontent.com/65222200/150014302-c06478b8-cd28-4318-82bc-5cd06e7e53d2.gif" widh="500px" height="300px"></img>
+<img src="https://user-images.githubusercontent.com/65222200/150014806-d2fc8e97-6d16-43fc-9613-cd12ff340039.gif" width="480px" height="300px"></img>
 
 ## 👫   팀원
 
@@ -69,7 +68,12 @@
 > Carousel Slider
 
 - **Infinite & Carousel Slider 기능 구현**<br /><br />1. Slide Sequence 동작 원리<br />
-이벤트가 trigger되었을 경우, 연속성을 유지하며 슬라이딩 기능이 동작되도록 **View 상에 User가 실제 보고 있는 세 개의 슬라이드 외에 왼쪽과 오른쪽에 나머지 슬라이드를 숨겨놓음**<br /><br />이전 슬라이드를 보여주기 위해서 **마지막 숨겨진 슬라이드를 시퀀스의 첫 번째 슬라이드 위치로 이동**시키며, 반대로 다음 슬라이드를 보여주기 위해서 **첫 번째 숨겨진 슬라이드를 목록의 마지막 위치로 이동**시킴<br /><br /> `&:nth-child(1) {
+이벤트가 trigger되었을 경우, 연속성을 유지하며 슬라이딩 기능이 동작되도록 **View 상에 User가 실제 보고 있는 세 개의 슬라이드 외에 왼쪽과 오른쪽에 나머지 슬라이드를 숨겨놓음**<br /><br />이전 슬라이드를 보여주기 위해서 **마지막 숨겨진 슬라이드를 시퀀스의 첫 번째 슬라이드 위치로 이동**시키며, 반대로 다음 슬라이드를 보여주기 위해서 **첫 번째 숨겨진 슬라이드를 목록의 마지막 위치로 이동**시킴<br />
+
+
+<img src="https://user-images.githubusercontent.com/65222200/150059918-01235d72-a226-45d5-a668-7f63b5f6cccb.jpg" width="500px" height="300px"></img><br/>
+
+`&:nth-child(1) {
     z-index: 1;
     transform: translateX(-204%);
   }
