@@ -118,7 +118,7 @@ const menuList = [
 ```
 2. Slide Animation을 위한 요소 타켓팅<br />화면에 지속적으로 보여지는 세 슬라이드를 제외 한 양 끝단의 슬라이드는 이동 방향에 따라 유동적으로 위치가 바뀌어야 하기 때문에, 이를 위해서 **Node.insertBefore**와 **Node.appendChild**를 사용하였고 해당 요소를 DOM 상에서 불러와 변수에 바인딩하기 위해 **React.useRef**를 사용
 ```javascript
-<SlideTrack ref={target}>(...)</SlideTrack> // SlideContainer. 새롭게 위치가 바뀐 슬라이드 요소를 재설정해주기 위함`
+<SlideTrack ref={target}>(...)</SlideTrack> // SlideContainer. 새롭게 위치가 바뀐 슬라이드 요소를 재설정해주기 위함
 ```
 ```javascript
 <Slide ref={el => targets.current[index} = el>(...)</Slide> // 양끝단의 슬라이드의 위치를 바꿔주기 위한 NodeList
